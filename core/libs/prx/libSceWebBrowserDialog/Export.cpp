@@ -64,8 +64,9 @@ int APS5_VABI sceWebBrowserDialogUpdateStatus(void) {
 }
 
 
-int APS5_VABI sceWebBrowserDialogSetCookie(void) {
-    NotImplemented_nid_no_patch(__func__);
+int APS5_VABI sceWebBrowserDialogSetCookie(const void* param) {
+    if (g_status.load() == COMMON_DIALOG_STATUS_NONE) return COMMON_DIALOG_ERROR_NOT_INITIALIZED;
+    if (param == nullptr) return COMMON_DIALOG_ERROR_ARG_NULL;
     return 0;
 }
 

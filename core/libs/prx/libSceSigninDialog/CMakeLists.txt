@@ -1,0 +1,20 @@
+add_library(libSceSigninDialog SHARED EXCLUDE_FROM_ALL Export.cpp)
+target_include_directories(libSceSigninDialog PRIVATE ${LIBS_INCLUDE_DIR})
+configure_windows_unwind(libSceSigninDialog)
+
+if(MINGW)
+    foreach(runtimeLinkFlag IN ITEMS -static-libgcc -static-libstdc++ -static)
+        string(REPLACE "${runtimeLinkFlag}" "" CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+    endforeach()
+endif()
+
+if(BUILD_TESTING)
+    add_test_executable(signin_dialog_tests ${LIBS_INCLUDE_DIR}/tests/SigninDialog.cpp)
+    target_include_directories(signin_dialog_tests PRIVATE ${LIBS_INCLUDE_DIR})
+    target_link_libraries(signin_dialog_tests PRIVATE libSceSigninDialog)
+    add_test(NAME signin_dialog COMMAND signin_dialog_tests)
+    if(WIN32)
+        set_tests_properties(signin_dialog PROPERTIES ENVIRONMENT_MODIFICATION
+            "PATH=path_list_prepend:$<TARGET_FILE_DIR:libSceSigninDialog>")
+    endif()
+endif()

@@ -27,6 +27,9 @@ extern "C" int APS5_VABI sceSystemServicePowerTick(void);
 extern "C" int APS5_VABI sceSystemServiceReportAbnormalTermination(const void* info);
 extern "C" int APS5_VABI sceSystemServiceDisableMusicPlayer(void);
 extern "C" int APS5_VABI sceSystemServiceReenableMusicPlayer(void);
+extern "C" int APS5_VABI sceSystemServiceOpenChallengeActivity(void);
+extern "C" int APS5_VABI sceSystemServiceOpenTournamentOccurrence(void);
+extern "C" int APS5_VABI sceSystemServiceShowControllerSettings(void);
 
 int main() {
     Require(sceSystemServicePowerTick() == SYSTEM_SERVICE_OK);
@@ -38,6 +41,12 @@ int main() {
     Require(sceSystemServiceDisableMusicPlayer() == SYSTEM_SERVICE_OK);
     Require(sceSystemServiceReenableMusicPlayer() == SYSTEM_SERVICE_OK);
     Require(sceSystemServiceReenableMusicPlayer() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceOpenChallengeActivity() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceOpenChallengeActivity() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceOpenTournamentOccurrence() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceOpenTournamentOccurrence() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceShowControllerSettings() == SYSTEM_SERVICE_OK);
+    Require(sceSystemServiceShowControllerSettings() == SYSTEM_SERVICE_OK);
     Require(sceSystemServiceGetHdrToneMapLuminance(nullptr) == SYSTEM_SERVICE_ERROR_PARAMETER);
     SystemServiceHdrToneMapLuminance luminance{-1.0f, -1.0f, -1.0f};
     Require(sceSystemServiceGetHdrToneMapLuminance(&luminance) == SYSTEM_SERVICE_OK);
